@@ -1,66 +1,67 @@
-import React from "react";
+import React from 'react';
 
-
-class Form extends React.Component { 
+class Form extends React.Component {
   state = {
     name: '',
     number: '',
-  }
+  };
 
-  
-  onSubmit = (event) => {
+  onSubmit = event => {
     event.preventDefault();
+    if (this.state.name.trim() === '') {
+      alert('Please, add the name! ');
+      return;
+    }
     this.props.onSubmit(this.state);
     this.reset();
-  }
+  };
 
-  onChange = (event) => {
+  onChange = event => {
     console.log(event);
-    const {name, value} = event.target;
-    this.setState ({[name] : value});
-  }
-  
-  reset = () => {
-    this.setState({name: '', number: ''})
-  }
-  render() {
-    
-    return (
-        <div>
-    <form className="Phonebook__form"
-    onSubmit = {this.onSubmit}> 
-        <label  className="Phonebook__label"  >
-            Name
-            </label>
-        <input className="Phonebook__input" size={35}
-         placeholder="Put your name here" 
-           onChange={this.onChange}
-  type="text"
-  name="name"
-  value={this.state.name}
-  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-  required
-/>
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
-       
-        <label className="Phonebook__label">  
-        Number
-        </label>
-        <input className="Phonebook__input" size={35}
-         placeholder="Put your number here" 
-        onChange = {this.onChange}
-  type="tel"
-  name="number"
-  value={this.state.number}
-  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-  required
-/>
-        
-        <button  className="Phonebook__button" onClick={this.onSubmit}>Add Contact</button>
-      </form>
-        </div>
+  reset = () => {
+    this.setState({ name: '', number: '' });
+  };
+  render() {
+    return (
+      <div>
+        <form className="Phonebook__form" onSubmit={this.onSubmit}>
+          <label className="Phonebook__label">Name</label>
+          <input
+            className="Phonebook__input"
+            size={35}
+            placeholder="Put your name here"
+            onChange={this.onChange}
+            type="text"
+            name="name"
+            value={this.state.name}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+
+          <label className="Phonebook__label">Number</label>
+          <input
+            className="Phonebook__input"
+            size={35}
+            placeholder="Put your number here"
+            onChange={this.onChange}
+            type="tel"
+            name="number"
+            value={this.state.number}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+
+          <button className="Phonebook__button" onClick={this.onSubmit}>
+            Add Contact
+          </button>
+        </form>
+      </div>
     );
   }
 }
