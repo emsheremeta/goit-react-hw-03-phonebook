@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './Phonebook.module.css';
+import PropTypes from 'prop-types';
 
 class Form extends React.Component {
   state = {
@@ -12,8 +14,10 @@ class Form extends React.Component {
       alert('Please, add the name! ');
       return;
     }
-    this.props.onSubmit(this.state);
-    this.reset();
+    const result = this.props.onSubmit(this.state);
+    if (result) {
+      this.reset();
+    }
   };
 
   onChange = event => {
@@ -28,10 +32,10 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-        <form className="Phonebook__form" onSubmit={this.onSubmit}>
-          <label className="Phonebook__label">Name</label>
+        <form className={styles.form} onSubmit={this.onSubmit}>
+          <label className={styles.label}>Name</label>
           <input
-            className="Phonebook__input"
+            className={styles.input}
             size={35}
             placeholder="Put your name here"
             onChange={this.onChange}
@@ -43,9 +47,9 @@ class Form extends React.Component {
             required
           />
 
-          <label className="Phonebook__label">Number</label>
+          <label className={styles.label}>Number</label>
           <input
-            className="Phonebook__input"
+            className={styles.input}
             size={35}
             placeholder="Put your number here"
             onChange={this.onChange}
@@ -57,7 +61,7 @@ class Form extends React.Component {
             required
           />
 
-          <button className="Phonebook__button" onClick={this.onSubmit}>
+          <button className={styles.button} onClick={this.onSubmit}>
             Add Contact
           </button>
         </form>
@@ -67,3 +71,7 @@ class Form extends React.Component {
 }
 
 export default Form;
+
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
